@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "version": "npm run build",
+    "version": "npm run test && npm run build",
     "build": "npm run clean && npm run compile",
     "compile": "node node_modules/typescript/bin/tsc --module commonjs",
     "watch": "node node_modules/typescript/bin/tsc --watch",
