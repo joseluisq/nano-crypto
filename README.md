@@ -20,7 +20,7 @@ npm install nano-crypto --save-dev
 
 ## API
 
-## random
+### random
 
 Uses [Nano ID](https://github.com/ai/nanoid) to generate secure random strings.
 
@@ -43,7 +43,7 @@ random(40).custom('ABC'))
 // AABCABABBABABABAACAACBBBCCCAAABAAAABAACA
 ```
 
-## digest
+### digest
 
 Uses node crypto to generate hash digests. 
 
@@ -60,7 +60,7 @@ digest('sha512').hash('HOLA')
 // 5cf58927b41378bcc076b26b3b850a66ebcec3ace74f6b949da5405721dd39488a238f5afff793b5125038bb1dd7184c1c11c47f4844d1ccbb310c9c75893b65
 ```
 
-## cipher
+### cipher
 
 Uses node crypto to encrypt data via cipher algorithms.
 

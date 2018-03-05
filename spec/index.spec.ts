@@ -1,4 +1,4 @@
-import { random, digest, cipher } from '../src'
+import { random } from '../src'
 
 describe('nano-crypto', () => {
   describe('random', () => {
