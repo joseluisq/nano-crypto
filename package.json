@@ -1,6 +1,6 @@
 {
   "name": "nano-crypto",
-  "version": "0.0.0",
+  "version": "0.0.1-0",
   "description": "Small nanoid + crypto utility functions",
   "main": "./dist/index.js",
   "typings": "index.d.ts",
@@ -20,7 +20,15 @@
     "name": "José Luis Quintana",
     "url": "http://git.io/joseluisq"
   },
-  "keywords": [ "nanoid", "random", "string", "alphanumeric", "crypto", "hash", "cipher" ],
+  "keywords": [
+    "nanoid",
+    "random",
+    "string",
+    "alphanumeric",
+    "crypto",
+    "hash",
+    "cipher"
+  ],
   "engines": {
     "node": ">= 4"
   },
