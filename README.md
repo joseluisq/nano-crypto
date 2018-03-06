@@ -1,6 +1,6 @@
 # nano-crypto [![Build Status](https://travis-ci.org/joseluisq/nano-crypto.svg?branch=master)](https://travis-ci.org/joseluisq/nano-crypto) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-> Small [Nano ID](https://github.com/ai/nanoid) + [crypto](https://nodejs.org/api/crypto.html) utility functions.
+> Small [Nano ID](https://github.com/ai/nanoid) + [Crypto](https://nodejs.org/api/crypto.html) utility functions.
 
 __Status:__ WIP
 
@@ -27,19 +27,19 @@ Uses [Nano ID](https://github.com/ai/nanoid) to generate secure random strings.
 ```js
 import { random } from 'nano-crypto'
 
-random(40).numeric())
+random(40).numeric()
 // 3531659724881516282463567169208265077954
-random(40).hex())
+random(40).hex()
 // b6813a57551935ea5f69d693abd1a57a9b7b8448
 random(40).alpha())
 // uEUoHDftxzpbUQBBwOQKjQdRRpdIThsTMmSztsBs
-random(40).alphalower())
+random(40).alphalower()
 // xjqwbtenbxdeilzaukayfzwpzisjjwgmkgjitwzm
-random(40).alphaupper())
+random(40).alphaupper()
 // RUHVVVOPUAYDCVICUHPPVQJWQFHYTERRGHITAHRF
-random(40).alphanumeric())
+random(40).alphanumeric()
 // 7g9mgBSHVuXNdzyVhWijvTB6ylf6h39kuEaX8GeZ
-random(40).custom('ABC'))
+random(40).custom('ABC')
 // AABCABABBABABABAACAACBBBCCCAAABAAAABAACA
 ```
 
