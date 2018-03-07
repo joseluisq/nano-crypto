@@ -67,10 +67,12 @@ Uses node crypto to encrypt data via cipher algorithms.
 ```js
 import { cipher } from 'nano-crypto'
 
-const { encrypt, encrypt } = cipher('aes-128-cbc', key)
 const key = 'secret_key'
+const { encrypt, encrypt } = cipher('aes-128-cbc', key)
+
 const encrypted = encrypt('HOLA')
 // fc584c8dd423026c824c7077a38cc387
+
 decrypt(encrypted)
 // HOLA
 ```
