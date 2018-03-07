@@ -1,4 +1,4 @@
-# nano-crypto [![Build Status](https://travis-ci.org/joseluisq/nano-crypto.svg?branch=master)](https://travis-ci.org/joseluisq/nano-crypto) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+# nano-crypto [![npm](https://img.shields.io/npm/v/printd.svg)](https://www.npmjs.com/package/nano-crypto) [![npm](https://img.shields.io/npm/dt/nano-crypto.svg)](https://www.npmjs.com/package/nano-crypto) [![Build Status](https://travis-ci.org/joseluisq/nano-crypto.svg?branch=master)](https://travis-ci.org/joseluisq/nano-crypto) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 > Small [Nano ID](https://github.com/ai/nanoid) + [Crypto](https://nodejs.org/api/crypto.html) utility functions.
 
