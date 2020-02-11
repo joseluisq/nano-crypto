@@ -2,8 +2,6 @@
 
 > Small [Nano ID](https://github.com/ai/nanoid) + [Crypto](https://nodejs.org/api/crypto.html) utility functions.
 
-__Status:__ WIP
-
 ## Install
 
 [Yarn](https://github.com/yarnpkg/)
@@ -24,7 +22,7 @@ npm install nano-crypto --save-dev
 
 Uses [Nano ID](https://github.com/ai/nanoid) to generate secure random strings.
 
-```js
+```ts
 import { random } from 'nano-crypto'
 
 random(40).numeric()
@@ -45,9 +43,9 @@ random(40).custom('ABC')
 
 ### digest
 
-Uses [node crypto](https://nodejs.org/api/crypto.html) to generate hash digests. 
+Uses [node crypto](https://nodejs.org/api/crypto.html) to generate hash digests.
 
-```js
+```ts
 import { digest } from 'nano-crypto'
 
 digest('md5').hash('HOLA')
@@ -64,7 +62,7 @@ digest('sha512').hash('HOLA')
 
 Uses [node crypto](https://nodejs.org/api/crypto.html) to encrypt data via cipher algorithms.
 
-```js
+```ts
 import { cipher } from 'nano-crypto'
 
 const key = 'secret_key'
@@ -83,4 +81,4 @@ Feel free to send some [pull request](https://github.com/joseluisq/nano-crypto/p
 ## License
 MIT license
 
-© 2018 [José Luis Quintana](http://git.io/joseluisq)
+© 2018-present [Jose Quintana](http://git.io/joseluisq)

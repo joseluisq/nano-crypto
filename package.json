@@ -1,48 +1,69 @@
 {
-  "name": "nano-crypto",
-  "version": "0.0.1-0",
-  "description": "Small nanoid + crypto utility functions",
-  "main": "./dist/index.js",
-  "typings": "index.d.ts",
-  "scripts": {
-    "version": "npm run test && npm run build",
-    "build": "npm run clean && npm run compile",
-    "compile": "node node_modules/typescript/bin/tsc --module commonjs",
-    "watch": "node node_modules/typescript/bin/tsc --watch",
-    "clean": "rm -rf dist",
-    "test": "jasmine-ts \"spec/**/*.spec.ts\"",
-    "test:watch": "node_modules/karma/bin/karma start",
-    "lint": "node node_modules/tslint/bin/tslint --format stylish --project tsconfig.json --type-check"
-  },
-  "repository": "joseluisq/nano-crypto",
-  "license": "MIT",
-  "author": {
-    "name": "José Luis Quintana",
-    "url": "http://git.io/joseluisq"
-  },
-  "keywords": [
-    "nanoid",
-    "random",
-    "string",
-    "alphanumeric",
-    "crypto",
-    "hash",
-    "cipher"
-  ],
-  "engines": {
-    "node": ">= 4"
-  },
-  "dependencies": {
-    "nanoid": "^1.0.2"
-  },
-  "devDependencies": {
-    "@types/jasmine": "^2.8.6",
-    "@types/nanoid": "^1.0.0",
-    "@types/node": "^9.4.6",
-    "jasmine-core": "^2.8.0",
-    "jasmine-spec-reporter": "^4.2.1",
-    "jasmine-ts": "^0.2.1",
-    "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.7.2"
-  }
+    "name": "nano-crypto",
+    "version": "0.0.1-0",
+    "description": "Small nanoid + crypto utility functions",
+    "main": "./dist/index.js",
+    "typings": "index.d.ts",
+    "repository": "joseluisq/nano-crypto",
+    "license": "MIT",
+    "author": {
+        "name": "Jose Quintana",
+        "url": "http://git.io/joseluisq"
+    },
+    "keywords": [
+        "nanoid",
+        "random",
+        "string",
+        "alphanumeric",
+        "crypto",
+        "hash",
+        "cipher"
+    ],
+    "engines": {
+        "node": ">= 10"
+    },
+    "scripts": {
+        "version": "yarn build",
+        "build": "env NODE_ENV=production PKG_NAME=$npm_package_name make",
+        "test": "yarn lint && jest",
+        "lint": "tslint --format stylish --project tsconfig.json"
+    },
+    "dependencies": {
+        "nanoid": "^2.1.11"
+    },
+    "devDependencies": {
+        "@types/jasmine": "^3.5.3",
+        "@types/jest": "^25.1.2",
+        "@types/nanoid": "^2.1.0",
+        "@types/node": "^13.7.1",
+        "jasmine-core": "^3.5.0",
+        "jasmine-spec-reporter": "^4.2.1",
+        "jasmine-ts": "^0.3.0",
+        "jest": "^25.1.0",
+        "rollup": "^1.31.0",
+        "rollup-plugin-commonjs": "^10.1.0",
+        "rollup-plugin-node-resolve": "^5.2.0",
+        "rollup-plugin-terser": "^5.2.0",
+        "rollup-plugin-typescript2": "^0.25.3",
+        "ts-jest": "^25.2.0",
+        "ts-node": "^8.6.2",
+        "tslint": "^6.0.0",
+        "tslint-config-standard-plus": "^2.3.0",
+        "typescript": "^3.7.5"
+    },
+    "jest": {
+        "transform": {
+            "^.+\\.ts$": "ts-jest"
+        },
+        "transformIgnorePatterns": [],
+        "testMatch": [
+            "**/src/**.spec.ts"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "js",
+            "json",
+            "node"
+        ]
+    }
 }

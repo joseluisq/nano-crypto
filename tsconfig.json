@@ -1,33 +1,38 @@
 {
     "compileOnSave": false,
-    "include": [ "src", "test" ],
-    "exclude": [ "test" ],
+    "include": [
+        "src",
+        "test/**.spec.*"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules"
+    ],
     "compilerOptions": {
-      "outDir": "./dist",
-      "sourceMap": true,
-      "declaration": false,
-      "noImplicitAny": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "noImplicitReturns": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "moduleResolution": "node",
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "module": "commonjs",
-      "target": "es5",
-      "typeRoots": [ "node_modules/@types" ],
-      "types": [ "@types/node", "@types/nanoid", "@types/jasmine" ],
-      "lib": [
-        "es2017",
-        "dom",
-        "es2015.generator",
-        "es2015.iterable",
-        "es2015.promise",
-        "es2015.symbol",
-        "es2015.symbol.wellknown",
-        "esnext.asynciterable"
-      ]
+        "outDir": "./dist",
+        "strict": true,
+        "declaration": false,
+        "sourceMap": true,
+        "pretty": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "module": "es2015",
+        "target": "es2015",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "@types/node",
+            "@types/jest"
+        ],
+        "lib": [
+            "es6",
+            "dom",
+            "ES2015",
+            "ESNext.AsyncIterable",
+        ]
     }
-  }
+}

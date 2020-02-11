@@ -1,0 +1,1 @@
+This is __nanoid__ but just `nanoid/format` and `nanoid/random` ported to [Typescript](https://www.typescriptlang.org/) for a seamlessly random bytes support. Please refer to original package at [github.com/ai/nanoid](https://github.com/ai/nanoid).
