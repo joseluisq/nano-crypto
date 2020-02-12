@@ -1,6 +1,8 @@
-# nano-crypto [![npm](https://img.shields.io/npm/v/nano-crypto.svg)](https://www.npmjs.com/package/nano-crypto) [![npm](https://img.shields.io/npm/dt/nano-crypto.svg)](https://www.npmjs.com/package/nano-crypto) [![Build Status](https://travis-ci.org/joseluisq/nano-crypto.svg?branch=master)](https://travis-ci.org/joseluisq/nano-crypto) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+# nano-crypto [![npm](https://img.shields.io/npm/v/nano-crypto.svg)](https://www.npmjs.com/package/nano-crypto) [![npm](https://img.shields.io/npm/dt/nano-crypto.svg)](https://www.npmjs.com/package/nano-crypto) [![Build Status](https://travis-ci.com/joseluisq/nano-crypto.svg?branch=master)](https://travis-ci.com/joseluisq/nano-crypto) [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 > [Nano ID](https://github.com/ai/nanoid) + [Crypto](https://nodejs.org/api/crypto.html) utility functions with full [Typescript](https://www.typescriptlang.org/) support.
+
+__nano-crypto__ has ported `nanoid/format` and `nanoid/random` functions only completely to [Typescript](https://www.typescriptlang.org/) (view [nanoid](./src/nanoid) directory) for a seamlessly random bytes support in the scope of this package. For full and custom support please refer to the original one at [github.com/ai/nanoid](https://github.com/ai/nanoid).
 
 ## Install
 

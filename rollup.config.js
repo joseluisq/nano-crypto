@@ -2,13 +2,15 @@ import commonjs from "rollup-plugin-commonjs"
 import resolve from "rollup-plugin-node-resolve"
 import typescript from "rollup-plugin-typescript2"
 import { terser } from "rollup-plugin-terser"
-import { name } from "./package.json"
+import pkg from "./package.json"
 
 const format = process.env.MODULE_FORMAT || "cjs"
+const filename = process.env.MODULE_FILENAME
+
 const isUMD = (format === "umd")
-const file = "./dist/" + (isUMD ? name + ".min.js" : "index.js")
+const file = "./dist/" + (isUMD ? filename + ".min.js" : filename + ".js")
 const output = {
-    name,
+    name: pkg.name.replace("-", "_"),
     file,
     format,
     sourcemap: false,
@@ -27,7 +29,7 @@ if (isUMD) {
 }
 
 export default {
-    input: "src/random.browser.ts",
+    input: `src/${filename}.ts`,
     output,
     plugins,
     onwarn

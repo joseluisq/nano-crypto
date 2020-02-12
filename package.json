@@ -1,7 +1,7 @@
 {
     "name": "nano-crypto",
     "version": "0.0.1-0",
-    "description": "Small nanoid + crypto utility functions",
+    "description": "Nano ID + Crypto utility functions with full Typescript support.",
     "main": "./dist/index.js",
     "typings": "index.d.ts",
     "repository": "joseluisq/nano-crypto",
@@ -15,6 +15,9 @@
         "random",
         "string",
         "alphanumeric",
+        "utility",
+        "encrypt",
+        "decrypt",
         "crypto",
         "hash",
         "cipher"

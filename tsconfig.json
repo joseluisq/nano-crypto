@@ -11,7 +11,7 @@
     "compilerOptions": {
         "outDir": "./dist",
         "strict": true,
-        "declaration": false,
+        "declaration": true,
         "sourceMap": true,
         "pretty": true,
         "moduleResolution": "node",
