@@ -11,3 +11,7 @@ coverage
 test
 /*.js
 .cache
+**/.DS_Store
+**/.spec.ts
+**/.spec.js
+**/.map

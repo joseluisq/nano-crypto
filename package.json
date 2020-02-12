@@ -2,7 +2,7 @@
     "name": "nano-crypto",
     "version": "0.0.1-0",
     "description": "Nano ID + Crypto utility functions with full Typescript support.",
-    "main": "./dist/index.js",
+    "main": "index.js",
     "typings": "index.d.ts",
     "repository": "joseluisq/nano-crypto",
     "license": "MIT",
@@ -26,10 +26,11 @@
         "node": ">= 10"
     },
     "scripts": {
-        "version": "yarn build",
         "build": "env NODE_ENV=production PKG_NAME=$npm_package_name make",
         "test": "yarn lint && jest",
-        "lint": "tslint --format stylish --project tsconfig.json"
+        "lint": "tslint --format stylish --project tsconfig.json",
+        "preversion": "yarn test && yarn build",
+        "postversion": "git push --tags && yarn publish ./dist --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
     },
     "dependencies": {
         "nanoid": "^2.1.11"

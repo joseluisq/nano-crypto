@@ -8,7 +8,7 @@ const format = process.env.MODULE_FORMAT || "cjs"
 const filename = process.env.MODULE_FILENAME
 
 const isUMD = (format === "umd")
-const file = "./dist/" + (isUMD ? filename + ".min.js" : filename + ".js")
+const file = "./dist/" + filename + ".js"
 const output = {
     name: pkg.name.replace("-", "_"),
     file,
