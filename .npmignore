@@ -9,7 +9,6 @@ coverage
 *.log
 .vscode
 test
-/*.js
 .cache
 **/.DS_Store
 **/.spec.ts
