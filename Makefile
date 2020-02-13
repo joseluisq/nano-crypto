@@ -16,7 +16,7 @@ build_cjs:
 
 build_umd:
 	@env MODULE_FORMAT=umd MODULE_FILENAME=random.browser rollup -c
-	# @env MODULE_FORMAT=umd MODULE_FILENAME=crypto.browser rollup -c
+	@env MODULE_FORMAT=umd MODULE_FILENAME=crypto.browser rollup -c
 
 	# build tsc commonjs only for index.ts file
 	@tsc --sourceMap false --outDir .cache --module commonjs

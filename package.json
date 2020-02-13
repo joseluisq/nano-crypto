@@ -19,8 +19,10 @@
         "encrypt",
         "decrypt",
         "crypto",
+        "digest",
         "hash",
-        "cipher"
+        "cipher",
+        "browser"
     ],
     "engines": {
         "node": ">= 10"
