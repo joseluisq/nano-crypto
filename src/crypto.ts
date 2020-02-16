@@ -1,8 +1,9 @@
-import { createCipher, createDecipher, createHash, Hash } from "crypto"
+import { createCipheriv, createDecipheriv, createHash, Hash, randomBytes } from "crypto"
 
-type Utf8AsciiBinaryEncoding = "utf8" | "ascii" | "binary"
 type HexBase64BinaryEncoding = "binary" | "base64" | "hex"
 type HexBase64Latin1Encoding = "latin1" | "hex" | "base64"
+
+const CRYPTO_ENCRYPT_ALGO = "aes-256-cbc"
 
 export function hash (data: string, algorithm: string, encoding: HexBase64Latin1Encoding): string {
     const hash: Hash = createHash(algorithm)
@@ -17,47 +18,67 @@ export function digest (algorithm: string) {
 }
 
 export function encrypt (
-    data: string,
-    password: string,
+    data: string | NodeJS.ArrayBufferView | Buffer,
     algorithm: string,
-    inEncoding: Utf8AsciiBinaryEncoding,
-    outEncoding: HexBase64BinaryEncoding
+    key: string | NodeJS.ArrayBufferView | Buffer,
+    iv: string | NodeJS.ArrayBufferView | Buffer,
+    outEncoding: HexBase64BinaryEncoding = "hex"
 ): string {
-    const cipher = createCipher(algorithm, password)
+    const cipher = createCipheriv(algorithm, key, iv)
 
-    let crypted = cipher.update(data, inEncoding, outEncoding)
-    crypted += cipher.final(outEncoding)
+    let encrypted = cipher.update(data)
+    encrypted = Buffer.concat([ encrypted, cipher.final() ])
 
-    return crypted
+    return iv.toString("hex") + ":" + encrypted.toString(outEncoding)
 }
 
 export function decrypt (
-    data: string,
-    password: string,
+    data: NodeJS.ArrayBufferView | Buffer,
     algorithm: string,
-    inEncoding: HexBase64BinaryEncoding,
-    outEncoding: Utf8AsciiBinaryEncoding
+    key: string | NodeJS.ArrayBufferView | Buffer,
+    iv: string | NodeJS.ArrayBufferView | Buffer
 ): string {
-    const cipher = createDecipher(algorithm, password)
+    const decipher = createDecipheriv(algorithm, key, iv)
 
-    let crypted: string = cipher.update(data, inEncoding, outEncoding)
-    crypted += cipher.final(outEncoding)
+    let decrypted = decipher.update(data)
+    decrypted = Buffer.concat([ decrypted, decipher.final() ])
 
-    return crypted
+    return decrypted.toString()
 }
 
-export function cipher (algorithm: string, passwd: string) {
+export function cipher (algorithm = CRYPTO_ENCRYPT_ALGO) {
     return {
-        encrypt: (
-            data: string,
-            inEncoding: Utf8AsciiBinaryEncoding = "utf8",
-            outEncoding: HexBase64BinaryEncoding = "hex"
-        ) => encrypt(data, passwd, algorithm, inEncoding, outEncoding),
+        encrypt,
+        decrypt,
 
-        decrypt: (
-            data: string,
-            inEncoding: HexBase64BinaryEncoding = "hex",
-            outEncoding: Utf8AsciiBinaryEncoding = "utf8"
-        ) => decrypt(data, passwd, algorithm, inEncoding, outEncoding)
+        /**
+         * Encrypt data using `AES-256-CBC` algorithm.
+         *
+         * @param data Data to encrypt
+         * @param key Key for encrypt data. It must be 256 bits (32 characters)
+         */
+        encryptAesGcm: (data: string | NodeJS.ArrayBufferView, key: string | NodeJS.ArrayBufferView | Buffer) => {
+            const iv = randomBytes(16)
+
+            if (typeof data === "string") {
+                data = Buffer.from(data)
+            }
+
+            return encrypt(data, algorithm, key, iv, "hex")
+        },
+
+        /**
+         * Decrypt data using `AES-256-CBC` algorithm.
+         *
+         * @param data Data to decrypt
+         * @param key Key for decrypt data. It must be 256 bits (32 characters)
+         */
+        decryptAesGcm: (data: string, key: string | NodeJS.ArrayBufferView | Buffer) => {
+            const parts = data.split(":")
+            const iv = Buffer.from(parts[0], "hex")
+            const encryptedData = Buffer.from(parts[1], "hex")
+
+            return decrypt(encryptedData, algorithm, key, iv)
+        }
     }
 }
