@@ -1,20 +1,55 @@
-type CryptoDigestAlgorithm = "SHA-256" | "SHA-384" | "SHA-512"
-type CryptoAesAlgoParams = AesCtrParams | AesCbcParams | AesGcmParams
+export type CryptoDigestAlgorithm = "SHA-256" | "SHA-384" | "SHA-512"
+export type CryptoAesAlgoParams = AesCtrParams | AesCbcParams | AesGcmParams
+export type DataInput = Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array |
+                        Uint8ClampedArray | Float32Array | Float64Array | DataView | ArrayBuffer
+
+interface DataOutput {
+    data: DataInput | undefined
+    error: Error | undefined
+}
 
 const CRYPTO_ENCRYPT_ALGO = "AES-GCM"
 const CRYPTO_ENCRYPT_ALGO_LEN = 256
 const CRYPTO_ENCRYPT_HASH_ALGO = "SHA-256"
 
-export async function hash (data: Uint8Array, algorithm: CryptoDigestAlgorithm) {
+function encodeDataInput (input: string | DataInput) {
+    let units: DataInput | undefined = undefined
+
+    const res: DataOutput = {
+        data: undefined,
+        error: undefined
+    }
+
+    if (typeof input === "string") {
+        units = new window.TextEncoder().encode(input)
+    }
+
+    if (typeof input === "object" && input instanceof Uint8Array) {
+        units = input
+    }
+
+    if (!units) {
+        res.error = new TypeError("Data type to encrypt is not supported. Types supported: Int8Array, Int16Array, Int32Array, Uint8Array, Uint16Array, Uint32Array, Uint8ClampedArray, Float32Array, Float64Array, DataView, ArrayBuffer")
+    }
+
+    res.data = units
+
+    return res
+}
+
+export async function hash (input: string | DataInput, algorithm: CryptoDigestAlgorithm) {
+    const { data, error } = encodeDataInput(input)
+
+    if (error || !data) {
+        throw error
+    }
+
     return window.crypto.subtle.digest(algorithm, data)
 }
 
 export function digest (algorithm: CryptoDigestAlgorithm) {
     return {
-        hash: async (data: string) => {
-            const units = new window.TextEncoder().encode(data)
-            return arrayBufferToHex(await hash(units, algorithm))
-        }
+        hash: async (data: string | DataInput) => arrayBufferToHex(await hash(data, algorithm))
     }
 }
 
@@ -28,39 +63,27 @@ export const createIV = (length = 16) => window.crypto.getRandomValues(new Uint8
 export function AES (algorithm: CryptoAesAlgoParams) {
     const createGcmAlgoParams = () => ({ name: CRYPTO_ENCRYPT_ALGO, iv: createIV() } as AesGcmParams)
 
-    async function encryptFn (data: string | Uint8Array, key: CryptoKey, algo: CryptoAesAlgoParams) {
+    async function encryptFn (input: string | DataInput, key: CryptoKey, algo: CryptoAesAlgoParams) {
         return new Promise<[ArrayBuffer, Uint8Array]>(async (resolve, reject) => {
-            if (!data) {
-                return reject(new TypeError("Data to encrypt not supplied"))
+            const { data, error } = encodeDataInput(input)
+
+            if (error || !data) {
+                throw error
             }
 
-            if (!key) {
-                return reject(new TypeError("The key was not specified"))
+            if (!key && typeof key !== "object") {
+                return reject(new TypeError("The `key` was not provided or is not a valid object type"))
             }
 
-            if (!algo) {
-                return reject(new TypeError("Algorithm was not specified"))
-            }
-
-            let units: Uint8Array | undefined = undefined
-
-            if (typeof data === "string") {
-                units = new window.TextEncoder().encode(data)
-            }
-
-            if (typeof data === "object" && data instanceof Uint8Array) {
-                units = data
-            }
-
-            if (!units) {
-                return reject(new TypeError("Data type to encrypt is not Uint8Array or string"))
+            if (!algo && typeof algo !== "object") {
+                return reject(new TypeError("The `algorithm` was not provided or is not a valid object type"))
             }
 
             try {
                 let iv: Uint8Array | undefined = undefined
 
                 if (!algo.hasOwnProperty("name")) {
-                    return reject(new TypeError("Algorithm object doesn't contain property name"))
+                    return reject(new TypeError("The `algorithm` object doesn't contain a property name"))
                 }
 
                 // `AesCbcParams` and `AesGcmParams` have an `iv` prop
@@ -74,10 +97,10 @@ export function AES (algorithm: CryptoAesAlgoParams) {
                 }
 
                 if (!iv) {
-                    return reject(new TypeError("Algorithm object doesn't contain property iv or counter"))
+                    return reject(new TypeError("The `algorithm` object doesn't contain a property `iv` or `counter`"))
                 }
 
-                const buf = await Promise.resolve(window.crypto.subtle.encrypt(algo, key, units))
+                const buf = await Promise.resolve(window.crypto.subtle.encrypt(algo, key, data))
 
                 resolve([ buf, iv ])
             } catch (err) {
