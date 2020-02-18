@@ -1,5 +1,5 @@
-import commonjs from "rollup-plugin-commonjs"
-import resolve from "rollup-plugin-node-resolve"
+import commonjs from "@rollup/plugin-commonjs"
+import resolve from "@rollup/plugin-node-resolve"
 import typescript from "rollup-plugin-typescript2"
 import { terser } from "rollup-plugin-terser"
 import pkg from "./package.json"
@@ -17,7 +17,13 @@ const output = {
     exports: "named"
 }
 const plugins = [
-    typescript()
+    typescript({
+        tsconfigOverride: {
+            compilerOptions: {
+                module: "ES2015"
+            }
+        }
+    })
 ]
 
 if (isUMD) {

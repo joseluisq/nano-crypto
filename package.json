@@ -29,8 +29,10 @@
     },
     "scripts": {
         "build": "env NODE_ENV=production PKG_NAME=$npm_package_name make",
-        "test": "yarn lint && jest",
-        "test:watch": "yarn lint && jest --watch",
+        "test": "yarn lint && yarn test:browser && yarn test:node",
+        "test:node": "ts-node node_modules/jasmine/bin/jasmine --reporter=jasmine-console-reporter --config=tests/jasmine.json",
+        "test:browser": "karma start --single-run --reporters spec",
+        "test:watch": "env NODE_ENV=debug karma start",
         "lint": "tslint --format stylish --project tsconfig.json",
         "preversion": "yarn test && yarn build"
     },
@@ -38,38 +40,28 @@
         "nanoid": "^2.1.11"
     },
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^11.0.2",
+        "@rollup/plugin-node-resolve": "^7.1.1",
         "@types/jasmine": "^3.5.3",
-        "@types/jest": "^25.1.2",
         "@types/nanoid": "^2.1.0",
         "@types/node": "^13.7.1",
+        "jasmine": "^3.5.0",
+        "jasmine-console-reporter": "^3.1.0",
         "jasmine-core": "^3.5.0",
         "jasmine-spec-reporter": "^4.2.1",
         "jasmine-ts": "^0.3.0",
-        "jest": "^25.1.0",
+        "karma": "^4.4.1",
+        "karma-chrome-launcher": "^3.1.0",
+        "karma-jasmine": "^3.1.1",
+        "karma-jasmine-html-reporter": "^1.5.2",
+        "karma-spec-reporter": "^0.0.32",
+        "karma-typescript": "^4.1.1",
         "rollup": "^1.31.0",
-        "rollup-plugin-commonjs": "^10.1.0",
-        "rollup-plugin-node-resolve": "^5.2.0",
         "rollup-plugin-terser": "^5.2.0",
         "rollup-plugin-typescript2": "^0.25.3",
-        "ts-jest": "^25.2.0",
         "ts-node": "^8.6.2",
         "tslint": "^6.0.0",
         "tslint-config-standard-plus": "^2.3.0",
         "typescript": "^3.7.5"
-    },
-    "jest": {
-        "transform": {
-            "^.+\\.ts$": "ts-jest"
-        },
-        "transformIgnorePatterns": [],
-        "testMatch": [
-            "**/src/**.spec.ts"
-        ],
-        "moduleFileExtensions": [
-            "ts",
-            "js",
-            "json",
-            "node"
-        ]
     }
 }

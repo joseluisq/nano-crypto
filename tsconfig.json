@@ -2,7 +2,7 @@
     "compileOnSave": false,
     "include": [
         "src",
-        "test/**.spec.*"
+        "tests/**.spec.*"
     ],
     "exclude": [
         "dist",
@@ -14,25 +14,29 @@
         "declaration": true,
         "sourceMap": true,
         "pretty": true,
-        "moduleResolution": "node",
+        "moduleResolution": "Node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "module": "es2015",
-        "target": "es2015",
+        "module": "CommonJS",
+        "target": "ES2015",
         "typeRoots": [
             "node_modules/@types"
         ],
         "types": [
-            "@types/node",
-            "@types/jest"
+            "@types/jasmine",
+            "@types/node"
         ],
         "lib": [
-            "es6",
-            "dom",
-            "ES2015",
-            "ESNext.AsyncIterable",
+            "ES2017",
+            "DOM",
+            "ES2015.Generator",
+            "ES2015.Iterable",
+            "ES2015.Promise",
+            "ES2015.Symbol",
+            "ES2015.Symbol.WellKnown",
+            "ESNext.AsyncIterable"
         ]
     }
 }
