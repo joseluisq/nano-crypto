@@ -65,21 +65,13 @@ export function AES (algorithm: CryptoAesAlgoParams) {
 
     async function encryptFn (input: string | DataInput, key: CryptoKey, algo: CryptoAesAlgoParams) {
         return new Promise<[ArrayBuffer, Uint8Array]>(async (resolve, reject) => {
-            const { data, error } = encodeDataInput(input)
-
-            if (error || !data) {
-                throw error
-            }
-
-            if (!key && typeof key !== "object") {
-                return reject(new TypeError("The `key` was not provided or is not a valid object type"))
-            }
-
-            if (!algo && typeof algo !== "object") {
-                return reject(new TypeError("The `algorithm` was not provided or is not a valid object type"))
-            }
-
             try {
+                const { data, error } = encodeDataInput(input)
+
+                if (error || !data) {
+                    throw error
+                }
+
                 let iv: Uint8Array | undefined = undefined
 
                 if (!algo.hasOwnProperty("name")) {

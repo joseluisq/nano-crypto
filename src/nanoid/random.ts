@@ -1,6 +1,6 @@
 // Borrowed from https://github.com/ai/nanoid/blob/master/random.js
 
-import crypto from "crypto"
+import * as crypto from "crypto"
 
 let exporter: (bytes: number) => Buffer
 

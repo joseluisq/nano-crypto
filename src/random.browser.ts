@@ -1,6 +1,6 @@
 import nanoidFormat from "./nanoid/format.browser"
 import nanoidRandom from "./nanoid/random.browser"
-import { ALPHA, ALPHANUMERIC, ALPHA_L, ALPHA_U, HEX, NUMERIC } from "./alphabets"
+import { ALPHA, ALPHANUMERIC, ALPHA_L, ALPHA_U, HEX, NUMERIC } from "./shared/alphabets"
 
 const generate = (alphabet: string, size: number) => nanoidFormat(nanoidRandom, alphabet, size)
 

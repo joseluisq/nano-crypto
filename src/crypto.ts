@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, createHash, Hash, randomBytes } from "crypto"
+import * as crypto from "crypto"
 
 type HexBase64BinaryEncoding = "binary" | "base64" | "hex"
 type HexBase64Latin1Encoding = "latin1" | "hex" | "base64"
@@ -6,7 +6,7 @@ type HexBase64Latin1Encoding = "latin1" | "hex" | "base64"
 const CRYPTO_ENCRYPT_ALGO = "aes-256-cbc"
 
 export function hash (data: string, algorithm: string, encoding: HexBase64Latin1Encoding): string {
-    const hash: Hash = createHash(algorithm)
+    const hash: crypto.Hash = crypto.createHash(algorithm)
     hash.update(data)
     return hash.digest(encoding)
 }
@@ -24,7 +24,7 @@ export function encrypt (
     iv: string | NodeJS.ArrayBufferView | Buffer,
     outEncoding: HexBase64BinaryEncoding = "hex"
 ): string {
-    const cipher = createCipheriv(algorithm, key, iv)
+    const cipher = crypto.createCipheriv(algorithm, key, iv)
 
     let encrypted = cipher.update(data)
     encrypted = Buffer.concat([ encrypted, cipher.final() ])
@@ -38,7 +38,7 @@ export function decrypt (
     key: string | NodeJS.ArrayBufferView | Buffer,
     iv: string | NodeJS.ArrayBufferView | Buffer
 ): string {
-    const decipher = createDecipheriv(algorithm, key, iv)
+    const decipher = crypto.createDecipheriv(algorithm, key, iv)
 
     let decrypted = decipher.update(data)
     decrypted = Buffer.concat([ decrypted, decipher.final() ])
@@ -58,7 +58,7 @@ export function cipher (algorithm = CRYPTO_ENCRYPT_ALGO) {
          * @param key Key for encrypt data. It must be 256 bits (32 characters)
          */
         encryptAesGcm: (data: string | NodeJS.ArrayBufferView, key: string | NodeJS.ArrayBufferView | Buffer) => {
-            const iv = randomBytes(16)
+            const iv = crypto.randomBytes(16)
 
             if (typeof data === "string") {
                 data = Buffer.from(data)
